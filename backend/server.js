@@ -32,6 +32,11 @@ app.get("/", (req, res) => {
   res.send("Elder Health API is running!");
 });
 
-// Start the server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+// Start the server (Only run if not exported for Vercel)
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+}
+
+// Export the app for Vercel Serverless Functions
+module.exports = app;
